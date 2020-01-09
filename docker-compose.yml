@@ -14,7 +14,7 @@ services:
                 networks:
                         - webnet
 
-        auction-service:
+        shawney/auction-service:
                 image: auction-service:latest
                 deploy:
                         replicas: 1
@@ -26,7 +26,7 @@ services:
                         - webnet
 
 
-        user-service:
+        shawney/user-service:
                 image: user-service:latest
                 deploy:
                         replicas: 1
