@@ -14,8 +14,8 @@ services:
                 networks:
                         - webnet
 
-        shawney/auction-service:
-                image: auction-service:latest
+        auction-service:
+                image: shawney/auction-service:latest
                 deploy:
                         replicas: 1
                         restart_policy:
@@ -26,8 +26,8 @@ services:
                         - webnet
 
 
-        shawney/user-service:
-                image: user-service:latest
+        user-service:
+                image: shawney/user-service:latest
                 deploy:
                         replicas: 1
                         restart_policy:
