@@ -1,0 +1,63 @@
+version: "3"
+
+services:
+        mysqldb:
+                image: mysql:latest
+                environment:
+                        - MYSQL_ROOT_PASSWORD=m7
+                deploy:
+                        replicas: 1
+                        restart_policy:
+                                condition: on-failure
+                ports:
+                        - "3306:3306"
+                networks:
+                        - webnet
+
+        auction-service:
+                image: auction-service:latest
+                deploy:
+                        replicas: 1
+                        restart_policy:
+                                condition: on-failure
+                ports:
+                        - "8081:8081"
+                networks:
+                        - webnet
+
+
+        user-service:
+                image: user-service:latest
+                deploy:
+                        replicas: 1
+                        restart_policy:
+                                condition: on-failure
+                ports:
+                        - "8080:8080"
+                networks:
+                        - webnet
+
+        metrics:
+                image: prom/prometheus:latest
+                deploy:
+                        replicas: 1
+                volumes:
+                        - ./prometheus.yml:/etc/prometheus/prometheus.yml
+                command:
+                        - "--config.file=/etc/prometheus/prometheus.yml"
+                ports:
+                        - "9090:9090"
+                networks:
+                        - webnet
+
+        node-exporter:
+               image: prom/node-exporter:latest
+               deploy:
+                       mode: global
+               ports:
+                       - "9100:9100"
+               networks:
+                       - webnet
+
+networks:
+        webnet:
