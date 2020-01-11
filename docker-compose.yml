@@ -37,6 +37,17 @@ services:
                 networks:
                         - webnet
 
+        auction-app-frontend:
+                image: shawney/auction-app-frontend:latest
+                deploy:
+                        replicas: 1
+                        restart_policy:
+                                condition: on-failure
+                ports:
+                        - "5000:5000"
+                networks:
+                        - webnet
+
         metrics:
                 image: prom/prometheus:latest
                 deploy:
